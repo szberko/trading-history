@@ -34,5 +34,10 @@
     "dist": "electron-builder"
   },
   "author": "Szabolcs Berkó",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "react-router-dom": "^5.1.2"
+  }
 }
