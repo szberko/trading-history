@@ -4,7 +4,7 @@ const csv = require('csvtojson');
 const csvFilePath='/Users/szberko-home/history.csv';
 const Datastore = require('nedb');
 
-let trades = new Datastore({filename: './foo.db', autoload: true});
+let trades = new Datastore({autoload: true});
 
 global.database = trades;
 
