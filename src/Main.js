@@ -1,8 +1,20 @@
 import React from "react";
-import NavigationDrawer from "./NavigationDrawer";
+import { withRouter, Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
-export default class Main extends React.Component {
+class Main extends React.Component {
   render() {
-    return <NavigationDrawer/>
+    return (
+        <div>
+          <div>Im Main</div>
+          <Button
+            to={{ pathname: '/dashboard'}}
+            component={Link}>
+            Dashboard
+          </Button>
+        </div>
+    );
   }
 }
+
+export default withRouter(Main);
