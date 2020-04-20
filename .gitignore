@@ -3,3 +3,4 @@ dist
 yarn.lock
 .idea
 .DS_Store
+*.db
