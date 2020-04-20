@@ -1,5 +1,12 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
+const csv = require('csvtojson');
+const csvFilePath='/Users/szberko-home/history.csv';
+const Datastore = require('nedb');
+
+let trades = new Datastore({filename: './foo.db', autoload: true});
+
+global.database = trades;
 
 function createWindow() {
   let mainWindow = new BrowserWindow({
@@ -14,6 +21,19 @@ function createWindow() {
   mainWindow.webContents.openDevTools();
 }
 
+function createDB() {
+  csv()
+    .fromFile(csvFilePath)
+    .then((json) => {
+      trades.insert(json, (err, doc) => {
+        err === null ?
+          console.log("All records inserted successfully.") :
+          console.log('Error during data insertion: ', err) ;
+      })
+    });
+}
+
+app.whenReady().then(createDB);
 app.whenReady().then(createWindow);
 
 // Quit when all windows are closed.
