@@ -1,5 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
+import update from 'react-addons-update';
+const trades = window.require('electron').remote.getGlobal('database');
 
 class TradeTable extends React.Component {
 
@@ -31,13 +33,24 @@ class TradeTable extends React.Component {
               new Promise((resolve, reject) => {
                 setTimeout(() => {
                   {
-                    const data = this.state.data;
-                    const index = data.indexOf(oldData);
-                    data[index] = newData;
-                    this.setState({ data }, () => resolve());
+                    trades.update({ticketNo: oldData.ticketNo}, { $set: {"strategy": newData.strategy} }, {} , (err, numReplaced) => {
+                      err === null ?
+                        console.log("The record has been updated successfully.") :
+                        console.log('Error during data update. Ticket No: ', oldData.ticketNo, " | ERROR: " , err) ;
+                    });
+
+                    const index = this.state.data.indexOf(oldData);
+                    this.setState(update(this.state, {
+                      data: {
+                        [index]: {
+                          $set: newData
+                        }
+                      }
+                    }));
+
                   }
-                  resolve()
-                }, 1000)
+                  resolve();
+                }, 200);
               })
           }}
           title="All trades"
