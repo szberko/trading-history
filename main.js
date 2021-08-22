@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const csv = require('csvtojson');
-const csvFilePath='/Users/szberko-home/history.csv';
+const csvFilePath='/Users/szberko/history.csv';
 const Datastore = require('nedb');
 
 let trades = new Datastore({autoload: true});
